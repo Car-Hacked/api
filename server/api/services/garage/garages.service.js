@@ -23,13 +23,23 @@ class GaragesService {
     }
 
     async delete(id) {
-        l.info(`${this.constructor.name}.byId(${id})`);
+        l.info(`delete ${this.constructor.name}.byId(${id})`);
         const result = await Garage.deleteOne({ _id: id }).catch(error => error);
         if (result instanceof Error){
             return result;
         }
         const response = { message: `Garage with id ${id} and all associated data successfully removed!`, code: 'REMOVED' };
         return response;
+    }
+
+    async update(body) {
+        l.info(`update ${this.constructor.name}.byId(${body._id})`);
+        await Garage.updateOne({ _id: body._id }, body, { upsert: true }).catch(error => error);
+        const garage = await Garage.findOne({ _id: body._id }).catch(error => error);
+        if(garage) {
+            return garage;
+        }
+        return new Error("failed");
     }
 }
 
