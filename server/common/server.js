@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import * as http from 'http';
 import * as os from 'os';
 import cookieParser from 'cookie-parser';
+import mongoose from 'mongoose';
 
 import oas from './oas';
 
@@ -34,6 +35,7 @@ export default class ExpressServer {
   }
 
   listen(port = process.env.PORT) {
+    mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-xp2nd.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
     const welcome = p => () =>
       l.info(
         `up and running in ${process.env.NODE_ENV ||
