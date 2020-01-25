@@ -48,7 +48,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ExampleBody'
+              $ref: '#/components/schemas/GarageBody'
         required: true
       responses:
         201:
@@ -56,7 +56,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Example'
+                $ref: '#/components/schemas/Garage'
         4XX:
           description: Example not found
           content:
@@ -121,9 +121,6 @@ components:
     Garage:
       type: object
       properties:
-        id:
-          type: integer
-          example: 3
         carsInLot:
           type: integer
           example: 3
@@ -147,7 +144,6 @@ components:
     GarageBody:
       title: garage
       required:
-        - carsInLot
         - capacity
       type: object
       properties:

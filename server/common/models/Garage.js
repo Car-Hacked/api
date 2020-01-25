@@ -1,12 +1,5 @@
 import mongoose from 'mongoose';
 
-const CounterSchema = new mongoose.Schema({
-    _id: { type: String, required: true },
-    seq: { type: Number, default: 0 }
-});
-
-let counter = mongoose.model('counter', CounterSchema);
-
 const GarageSchema = new mongoose.Schema({
     garageNumber: {
         type: Number,
@@ -25,13 +18,14 @@ const GarageSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 GarageSchema.pre('save', function(next) {
-    let doc = this;
-    counter.findByIdAndUpdate({ _id: 'entityId' }, { $inc: { seq: 1 } }, function (error, counter) {
-        if (error)
-            return next(error);
-        doc.garageNumber = counter.seq;
+    if (this.isNew) {
+        this.constructor.countDocuments({}).then(res => {
+            this.garageNumber = res; // Increment count
+            next();
+        });
+    } else {
         next();
-    });
+    }
 });
 
 module.exports.Garage = mongoose.model('Garage', GarageSchema);

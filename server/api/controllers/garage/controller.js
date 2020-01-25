@@ -13,7 +13,7 @@ export class Controller {
     }
 
     create(req, res) {
-        GaragesService.create(req.body.name).then(r =>
+        GaragesService.create(req.body).then(r =>
             res
                 .status(201)
                 .location(`/api/v1/examples/${r.id}`)
