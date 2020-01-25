@@ -46,6 +46,7 @@ export default class ExpressServer {
       .then(() => {
         const server = http.createServer(app).listen(port, welcome(port));
         const io = require('socket.io')(server);
+        global.io = io;
         io.on('connection', (socket) => {
           let time = setInterval(() => {
             let current = new Date().toTimeString();
