@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 
 const GarageSchema = new mongoose.Schema({
+    garageName: {
+        type: String,
+        required: true
+    },
     garageNumber: {
         type: Number,
         default: 0,

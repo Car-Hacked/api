@@ -173,9 +173,13 @@ components:
     GarageBody:
       title: garage
       required:
+        - garageName
         - capacity
       type: object
       properties:
+        garageName:
+          type: string
+          example: Parking-Lot 5
         carsInLot:
           type: integer
           example: 3
