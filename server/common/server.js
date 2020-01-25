@@ -4,7 +4,6 @@ import * as bodyParser from 'body-parser';
 import * as http from 'http';
 import * as os from 'os';
 import cookieParser from 'cookie-parser';
-import mongoose from 'mongoose';
 
 import oas from './oas';
 
@@ -35,7 +34,6 @@ export default class ExpressServer {
   }
 
   listen(port = process.env.PORT) {
-    mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-xp2nd.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
     const welcome = p => () =>
       l.info(
         `up and running in ${process.env.NODE_ENV ||
@@ -44,15 +42,7 @@ export default class ExpressServer {
 
     oas(app, this.routes)
       .then(() => {
-        const server = http.createServer(app).listen(port, welcome(port));
-        const io = require('socket.io')(server);
-        io.on('connection', (socket) => {
-          let time = setInterval(() => {
-            let current = new Date().toTimeString();
-            socket.emit("time", { time: current });
-            console.log(`Emmited event time at ${current}.`);
-          }, 1000);
-        });
+        http.createServer(app).listen(port, welcome(port));
       })
       .catch(e => {
         l.error(e);
