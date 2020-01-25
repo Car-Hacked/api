@@ -27,5 +27,12 @@ export class Controller {
             else res.status(404).end();
         });
     }
+
+    update(req, res) {
+        GaragesService.update(req.body).then(r => {
+            if (r) res.json(r);
+            else res.status(404).end();
+        });
+    }
 }
 export default new Controller();
