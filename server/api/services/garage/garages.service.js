@@ -4,7 +4,8 @@ import { Garage } from '../../../common/models/Garage';
 class GaragesService {
     async all() {
         l.info(`${this.constructor.name}.all()`);
-        return Garage.find({}, (e, r) => r).catch(error => error);
+        const result = await Garage.find({}, (e, r) => r).catch(error => error);
+        return result;
     }
 
     byId(id) {
