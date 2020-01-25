@@ -28,6 +28,7 @@ GarageSchema.pre('save', function(next) {
             next();
         });
     } else {
+        io.emit("updated", this);
         next();
     }
 });
