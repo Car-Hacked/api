@@ -1,4 +1,5 @@
 import GaragesService from '../../services/garage/garages.service';
+import app from '../../../common/server';
 
 export class Controller {
     all(req, res) {
