@@ -79,7 +79,7 @@ paths:
           description: The id of the garage to retrieve
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         200:
           description: Return the garage with the specified id
