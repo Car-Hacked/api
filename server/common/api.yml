@@ -72,7 +72,7 @@ paths:
   /garages/{id}:
     get:
       tags:
-        - Examples
+        - Garages
       parameters:
         - name: id
           in: path
@@ -88,13 +88,42 @@ paths:
               schema:
                 $ref: '#/components/schemas/Garage'
         4XX:
-          description: Example not found
+          description: Garage not found
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         5XX:
-          description: Example not found
+          description: Garage not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Garages
+      parameters:
+        - name: id
+          in: path
+          description: The id of the garage to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Delete the garage with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Garage'
+        4XX:
+          description: Garage not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Garage not found
           content:
             application/json:
               schema:
