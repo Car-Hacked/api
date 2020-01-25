@@ -8,23 +8,25 @@ servers:
 tags:
   - name: Examples
     description: Simple example endpoints
+  - name: Garages
+    description: Simple garage endpoints
   - name: Specification
     description: The swagger API specification
 paths:
-  /examples:
+  /garages:
     get:
       tags:
-        - Examples
-      description: Fetch all examples
+        - Garages
+      description: Fetch all garages
       responses:
         200:
-          description: Return the example with the specified id
+          description: Return the garage with the specified id
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Example'
+                  $ref: '#/components/schemas/Garage'
         4XX:
           description: Example not found
           content:
@@ -39,10 +41,10 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       tags:
-        - Examples
-      description: Create a new example
+        - Garages
+      description: Create a new Garage
       requestBody:
-        description: an example
+        description: a garage
         content:
           application/json:
             schema:
@@ -67,24 +69,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /examples/{id}:
+  /garages/{id}:
     get:
       tags:
         - Examples
       parameters:
         - name: id
           in: path
-          description: The id of the example to retrieve
+          description: The id of the garage to retrieve
           required: true
           schema:
             type: integer
       responses:
         200:
-          description: Return the example with the specified id
+          description: Return the garage with the specified id
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Example'
+                $ref: '#/components/schemas/Garage'
         4XX:
           description: Example not found
           content:
@@ -116,6 +118,18 @@ components:
         name:
           type: string
           example: example 3
+    Garage:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3
+        carsInLot:
+          type: integer
+          example: 3
+        capacity:
+          type: integer
+          example: 500
     Error:
       type: object
       additionalProperties: true
@@ -129,3 +143,17 @@ components:
         name:
           type: string
           example: no_stress
+
+    GarageBody:
+      title: garage
+      required:
+        - carsInLot
+        - capacity
+      type: object
+      properties:
+        carsInLot:
+          type: integer
+          example: 3
+        capacity:
+          type: integer
+          example: 500
