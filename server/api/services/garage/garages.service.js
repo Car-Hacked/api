@@ -37,6 +37,7 @@ class GaragesService {
         await Garage.updateOne({ _id: body._id }, body, { upsert: true }).catch(error => error);
         const garage = await Garage.findOne({ _id: body._id }).catch(error => error);
         if(garage) {
+            garage.save();
             return garage;
         }
         return new Error("failed");
