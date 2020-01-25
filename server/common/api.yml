@@ -69,6 +69,36 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    patch:
+      tags:
+        - Garages
+      description: Edit a Garage
+      requestBody:
+        description: a garage
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBody'
+        required: true
+      responses:
+        201:
+          description: Return the example with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Garage'
+        4XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        5XX:
+          description: Example not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /garages/{id}:
     get:
       tags:
@@ -176,6 +206,21 @@ components:
         - capacity
       type: object
       properties:
+        carsInLot:
+          type: integer
+          example: 3
+        capacity:
+          type: integer
+          example: 500
+
+    UpdateBody:
+      title: garage
+      required:
+        - _id
+      type: object
+      properties:
+        _id:
+          type: string
         carsInLot:
           type: integer
           example: 3
