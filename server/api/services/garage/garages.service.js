@@ -1,19 +1,15 @@
 import l from '../../../common/logger';
-import db from './dummy.db.service';
+import Garage from '.../.../../common/models/Garage';
 
 class GaragesService {
     all() {
         l.info(`${this.constructor.name}.all()`);
-        return db.all();
+        return Garage.find().catch(error => error);
     }
 
     byId(id) {
         l.info(`${this.constructor.name}.byId(${id})`);
-        return db.byId(id);
-    }
-
-    create(name) {
-        return db.insert(name);
+        return Garage.findOne({ _id: id }).catch(error => error);
     }
 }
 
