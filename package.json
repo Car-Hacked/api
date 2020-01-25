@@ -18,8 +18,9 @@
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "pino": "^5.13.6",
-    "express-openapi-validator": "^3.0.2"
+    "express-openapi-validator": "^3.0.2",
+    "mongoose": "^5.8.9",
+    "pino": "^5.13.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.0",
