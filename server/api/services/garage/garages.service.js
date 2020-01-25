@@ -15,6 +15,7 @@ class GaragesService {
     async create(body) {
         l.info(`${this.constructor.name}.create()`);
         const garageConfig = {
+            garageName: body.garageName,
             carsInLot: body.carsInLot || 0,
             capacity: body.capacity
         };
