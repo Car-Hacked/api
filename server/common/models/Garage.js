@@ -5,6 +5,10 @@ const GarageSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    address: {
+        type: String,
+        required: true
+    },
     garageNumber: {
         type: Number,
         default: 0,
