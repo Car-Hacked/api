@@ -1,5 +1,5 @@
 import GaragesService from '../../services/garage/garages.service';
-import app from '../../../common/server';
+import MeService from '../../services/me.service';
 
 export class Controller {
     all(req, res) {
@@ -13,7 +13,16 @@ export class Controller {
         });
     }
 
-    create(req, res) {
+    async create(req, res) {
+        const user = await MeService.me(req).catch(error => error);
+        if (user instanceof Error && 'code' in user && user.code === 'NOT_AUTH') {
+            return res.status(401).json(user);
+        } else if (user instanceof Error) {
+            l.error(user);
+            return res
+                .status(500)
+                .json({ error: 'An internal server error occured!', code: 'INTERNAL' });
+        }
         GaragesService.create(req.body).then(r =>
             res
                 .status(201)
@@ -22,14 +31,32 @@ export class Controller {
         );
     }
 
-    delete(req, res) {
+    async delete(req, res) {
+        const user = await MeService.me(req).catch(error => error);
+        if (user instanceof Error && 'code' in user && user.code === 'NOT_AUTH') {
+            return res.status(401).json(user);
+        } else if (user instanceof Error) {
+            l.error(user);
+            return res
+                .status(500)
+                .json({ error: 'An internal server error occured!', code: 'INTERNAL' });
+        }
         GaragesService.delete(req.params.id).then(r => {
             if (r) res.json(r);
             else res.status(404).end();
         });
     }
 
-    update(req, res) {
+    async update(req, res) {
+        const user = await MeService.me(req).catch(error => error);
+        if (user instanceof Error && 'code' in user && user.code === 'NOT_AUTH') {
+            return res.status(401).json(user);
+        } else if (user instanceof Error) {
+            l.error(user);
+            return res
+                .status(500)
+                .json({ error: 'An internal server error occured!', code: 'INTERNAL' });
+        }
         GaragesService.update(req.body).then(r => {
             if (r) res.json(r);
             else res.status(404).end();
