@@ -48,6 +48,9 @@ export default class ExpressServer {
         const io = require('socket.io')(server);
         global.io = io;
         io.on('connection', (socket) => {
+          socket.emit('welcome', {
+            welcome: "server connected"
+          });
           console.log('user connected to socket');
         });
       })
