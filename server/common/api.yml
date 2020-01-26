@@ -1,6 +1,6 @@
 openapi: 3.0.1
 info:
-  title: hackmt-2020
+  title: park-a-lot
   description: hackmt-2020 project
   version: 1.0.0
 servers:
