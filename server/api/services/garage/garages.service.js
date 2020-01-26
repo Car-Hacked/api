@@ -16,6 +16,7 @@ class GaragesService {
         l.info(`${this.constructor.name}.create()`);
         const garageConfig = {
             garageName: body.garageName,
+            address: body.address,
             carsInLot: body.carsInLot || 0,
             capacity: body.capacity
         };

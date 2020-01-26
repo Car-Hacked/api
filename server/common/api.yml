@@ -180,6 +180,9 @@ components:
         garageName:
           type: string
           example: Parking-Lot 5
+        address:
+          type: string
+          example: 1803 15th Ave S, 37212 Nashville, TN
         carsInLot:
           type: integer
           example: 3
