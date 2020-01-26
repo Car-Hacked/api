@@ -48,11 +48,7 @@ export default class ExpressServer {
         const io = require('socket.io')(server);
         global.io = io;
         io.on('connection', (socket) => {
-          let time = setInterval(() => {
-            let current = new Date().toTimeString();
-            socket.emit("time", { time: current });
-            console.log(`Emmited event time at ${current}.`);
-          }, 1000);
+          console.log('user connected to socket');
         });
       })
       .catch(e => {
