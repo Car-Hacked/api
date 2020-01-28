@@ -37,7 +37,7 @@ export default class ExpressServer {
     return this;
   }
 
-  listen(port = process.env.PORT) {
+  listen(port = process.env.PORT || 3000) {
     mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-xp2nd.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
     const welcome = p => () =>
       l.info(
@@ -51,11 +51,10 @@ export default class ExpressServer {
         const io = require('socket.io')(server);
         global.io = io;
         io.on('connection', (socket) => {
-          let time = setInterval(() => {
-            let current = new Date().toTimeString();
-            socket.emit("time", { time: current });
-            console.log(`Emmited event time at ${current}.`);
-          }, 1000);
+          socket.emit('welcome', {
+            welcome: "server connected"
+          });
+          l.info(`user connected to socket: ${socket.id}`);
         });
       })
       .catch(e => {
