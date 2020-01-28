@@ -20,7 +20,7 @@ export class Controller {
             req.body.password &&
             req.body.secret) {
             const usernameRegex = /^[a-z0-9_]+$/i;
-            if (req.body.secret !== 'hackmt-2020') {
+            if (req.body.secret !== process.env.SERVER_SECRET) {
                 return res
                     .status(401)
                     .json({ error: 'Invalid credentials', code: 'NOT_AUTH' });
