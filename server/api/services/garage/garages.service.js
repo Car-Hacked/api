@@ -4,7 +4,8 @@ import { Garage } from '../../../common/models/Garage';
 class GaragesService {
     async all() {
         l.info(`${this.constructor.name}.all()`);
-        return Garage.find({}, (e, r) => r).catch(error => error);
+        const result = await Garage.find({}, (e, r) => r).catch(error => error);
+        return result;
     }
 
     byId(id) {
@@ -15,6 +16,8 @@ class GaragesService {
     async create(body) {
         l.info(`${this.constructor.name}.create()`);
         const garageConfig = {
+            garageName: body.garageName,
+            address: body.address,
             carsInLot: body.carsInLot || 0,
             capacity: body.capacity
         };
