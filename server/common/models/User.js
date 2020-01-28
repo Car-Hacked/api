@@ -19,7 +19,6 @@ UserSchema.statics.authenticate = async function (Username, password) {
     if (user) {
         const match = await bcrypt.compare(password, user.password);
         if (match === true) {
-            user = await user.populate('currentDay').execPopulate().catch(error => error);
             if (user instanceof Error) return user;
             return user;
         }
