@@ -4,7 +4,5 @@ import controller from './controller';
 export default express
     .Router()
     .post('/', controller.create)
-    .patch('/', controller.update)
-    .delete('/:id', controller.delete)
-    .get('/', controller.all)
-    .get('/:id', controller.byId);
+    .delete('/', controller.remove)
+    .patch('/', controller.update);
