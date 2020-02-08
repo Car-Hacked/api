@@ -31,10 +31,8 @@ GarageSchema.pre('save', function(next) {
             this.garageNumber = res + 1; // Increment count
             next();
         });
-    } else {
-        io.emit("updated", this._id, this.carsInLot);
-        next();
     }
+    next();
 });
 
 module.exports.Garage = mongoose.model('Garage', GarageSchema);

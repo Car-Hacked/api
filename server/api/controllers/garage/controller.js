@@ -58,7 +58,11 @@ export class Controller {
                 .json({ error: 'An internal server error occured!', code: 'INTERNAL' });
         }
         GaragesService.update(req.body).then(r => {
-            if (r) res.json(r);
+            if (r) {
+                const io = req.app.get('socketio');
+                io.emit("updated", r._id, r.carsInLot);
+                res.json(r);
+            }
             else res.status(404).end();
         });
     }
