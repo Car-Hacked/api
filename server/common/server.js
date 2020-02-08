@@ -5,6 +5,7 @@ import * as http from 'http';
 import * as os from 'os';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
+import cors from 'cors';
 
 import oas from './oas';
 
@@ -16,6 +17,7 @@ const exit = process.exit;
 export default class ExpressServer {
   constructor() {
     const root = path.normalize(`${__dirname}/../..`);
+    app.use(cors());
     app.set('appPath', `${root}client`);
     app.use(bodyParser.json({ limit: process.env.REQUEST_LIMIT || '100kb' }));
     app.use(
@@ -27,6 +29,7 @@ export default class ExpressServer {
     app.use(bodyParser.text({ limit: process.env.REQUEST_LIMIT || '100kb' }));
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(Express.static(`${root}/public`));
+    mongoose.set('useCreateIndex', true);
   }
 
   router(routes) {
@@ -34,7 +37,7 @@ export default class ExpressServer {
     return this;
   }
 
-  listen(port = process.env.PORT) {
+  listen(port = process.env.PORT || 3001) {
     mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-xp2nd.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
     const welcome = p => () =>
       l.info(
@@ -46,12 +49,12 @@ export default class ExpressServer {
       .then(() => {
         const server = http.createServer(app).listen(port, welcome(port));
         const io = require('socket.io')(server);
+        app.set('socketio', io);
         io.on('connection', (socket) => {
-          let time = setInterval(() => {
-            let current = new Date().toTimeString();
-            socket.emit("time", { time: current });
-            console.log(`Emmited event time at ${current}.`);
-          }, 1000);
+          socket.emit('welcome', {
+            welcome: "server connected"
+          });
+          l.info(`user connected to socket: ${socket.id}`);
         });
       })
       .catch(e => {
