@@ -22,7 +22,7 @@
     "express": "^4.17.1",
     "express-openapi-validator": "^3.0.2",
     "http": "0.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongoose": "^5.8.9",
     "pino": "^5.13.6",
     "socket.io": "^2.3.0",
