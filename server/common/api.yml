@@ -6,6 +6,8 @@ info:
 servers:
   - url: /api/v1
 tags:
+  - name: Examples
+    description: Simple example endpoints
   - name: Users
     description: Simple example endpoints
   - name: Garages
