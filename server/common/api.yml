@@ -149,7 +149,7 @@ paths:
       description: Fetch all garages
       responses:
         200:
-          description: Return all garages
+          description: Return the garage with the specified id
           content:
             application/json:
               schema:
