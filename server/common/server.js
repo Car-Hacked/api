@@ -37,7 +37,7 @@ export default class ExpressServer {
     return this;
   }
 
-  listen(port = process.env.PORT || 3001) {
+  listen(port = process.env.PORT || 3000) {
     mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-xp2nd.mongodb.net/test?retryWrites=true&w=majority`, { useNewUrlParser: true, useUnifiedTopology: true });
     const welcome = p => () =>
       l.info(
@@ -49,7 +49,7 @@ export default class ExpressServer {
       .then(() => {
         const server = http.createServer(app).listen(port, welcome(port));
         const io = require('socket.io')(server);
-        app.set('socketio', io);
+        global.io = io;
         io.on('connection', (socket) => {
           socket.emit('welcome', {
             welcome: "server connected"
