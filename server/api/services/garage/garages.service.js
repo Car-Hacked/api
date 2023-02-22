@@ -1,5 +1,5 @@
-import l from '../../../common/logger';
-import { Garage } from '../../../common/models/Garage';
+import l from '../../../common/logger.js';
+import { Garage } from '../../../common/models/Garage.js';
 
 class GaragesService {
     async all() {

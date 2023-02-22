@@ -1,6 +1,6 @@
-import l from '../../common/logger';
-import { User } from '../../common/models/User';
-import Token from '../../common/models/AccessToken';
+import l from '../../common/logger.js';
+import { User } from '../../common/models/User.js';
+import Token from '../../common/models/AccessToken.js';
 
 class MeService {
     async me(req, res) {

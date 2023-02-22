@@ -1,7 +1,7 @@
-import uuid from 'uuid/v4';
-import l from '../../common/logger';
-import { User } from '../../common/models/User';
-import Token from '../../common/models/AccessToken';
+import { v4 as uuidv4 } from 'uuid';
+import l from '../../common/logger.js';
+import { User } from '../../common/models/User.js';
+import Token from '../../common/models/AccessToken.js';
 
 class LoginService {
     async login(req, res) {
@@ -18,7 +18,7 @@ class LoginService {
                 return err;
             });
         if (user && !(user instanceof Error)) {
-            const tokenNum = uuid();
+            const tokenNum = uuidv4();
             const tokenData = { token: tokenNum, user: user._id };
             let token = await Token.create(tokenData).catch(error => error);
             if (token && !(token instanceof Error)) {

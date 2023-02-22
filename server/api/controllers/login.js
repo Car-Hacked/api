@@ -1,5 +1,5 @@
-import LoginService from '../services/login.service';
-import l from '../../common/logger';
+import LoginService from '../services/login.service.js';
+import l from '../../common/logger.js';
 
 export class Controller {
     async login(req, res) {

@@ -37,4 +37,4 @@ GarageSchema.pre('save', function(next) {
     }
 });
 
-module.exports.Garage = mongoose.model('Garage', GarageSchema);
+export const Garage = mongoose.model('Garage', GarageSchema);

@@ -1,5 +1,5 @@
-import MeService from '../services/me.service';
-import l from '../../common/logger';
+import MeService from '../services/me.service.js';
+import l from '../../common/logger.js';
 
 export class Controller {
     async me(req, res) {

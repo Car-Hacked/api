@@ -1,7 +1,9 @@
 FROM node:18
 WORKDIR /app
-COPY package*.json /app
-COPY . /app
+COPY ["package.json", "package-lock.json*", "./"]
+COPY . .
 RUN npm install
-RUN npm ci --only=production
-CMD ["npm", "start"]
+ENV NODE_ENV=production
+ENV PORT 8080
+EXPOSE 8080
+CMD ["node", "./server/index.js"]
