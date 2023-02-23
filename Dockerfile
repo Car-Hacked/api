@@ -17,8 +17,8 @@ ENV NODE_ENV="production"
 FROM node:18-alpine AS runner
 WORKDIR /home/app
 
-COPY --from=builder /home/app/server
-COPY --from=builder /home/app/public
+COPY --from=builder /home/app/server /home/app/server
+COPY --from=builder /home/app/public /home/app/public
 
 
 ENV NODE_ENV="production"
