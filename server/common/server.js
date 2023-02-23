@@ -53,7 +53,8 @@ export default class ExpressServer {
 
     oas(app, this.routes)
       .then(() => {
-        const io = new Server(port);
+        const server = http.createServer(app).listen(port, welcome(port));
+        const io = new Server(server);
         global.io = io;
         io.on('connection', (socket) => {
           socket.emit('welcome', {

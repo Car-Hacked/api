@@ -4,7 +4,7 @@
   "description": "hackmt-2020 project",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node ./server/index.js",
     "compile": "babel server --out-dir dist --delete-dir-on-start --source-maps inline --copy-files",
     "dev": "nodemon server --exec node ./server/index.js | pino-pretty",
     "dev:debug": "nodemon server --exec babel-node --config .nodemonrc.json --inspect | pino-pretty",
