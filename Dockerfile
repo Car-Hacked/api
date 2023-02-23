@@ -1,12 +1,11 @@
-FROM node:18.14-alpine AS dependencies
-RUN apk add --no-cache libc6-compat
+FROM node:18.14 AS dependencies
 WORKDIR /home/app
 
 COPY package.json ./
 COPY package-lock.json ./
 RUN npm install
 
-FROM node:18-alpine AS builder
+FROM node:18 AS builder
 WORKDIR /home/app
 
 COPY --from=dependencies /home/app/node_modules ./node_modules
@@ -14,7 +13,7 @@ COPY . .
 
 ENV NODE_ENV="production"
 
-FROM node:18-alpine AS runner
+FROM node:18 AS runner
 WORKDIR /home/app
 
 COPY --from=builder /home/app/server /home/app/server
