@@ -10,21 +10,15 @@ export class Controller {
         l.info('UsersService.create()');
         if (req.body &&
             ((req.body.username && req.body.username.length > 20) &&
-                (req.body.password && req.body.password.length > 20) && (req.body.secret && req.body.secret.length > 20))) {
+                (req.body.password && req.body.password.length > 20))) {
             return res
                 .status(422)
                 .json({ error: 'One of the parameters is too long! Keep under 20 characters!', code: 'TOO_LONG' });
         }
         if (req.body &&
             req.body.username &&
-            req.body.password &&
-            req.body.secret) {
+            req.body.password) {
             const usernameRegex = /^[a-z0-9_]+$/i;
-            if (req.body.secret !== process.env.SERVER_SECRET) {
-                return res
-                    .status(401)
-                    .json({ error: 'Invalid credentials', code: 'NOT_AUTH' });
-            }
             if (usernameRegex.test(req.body.username)) {
                 return UsersService
                     .create(req.body)
