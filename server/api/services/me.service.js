@@ -21,9 +21,6 @@ class MeService {
             }
             let user = await User.findOne({ _id: token.user }).catch(error => error);
             if (user && !(user instanceof Error)) {
-                user = await user
-                    .populate('currentDay')
-                    .execPopulate().catch(error => error);
                 return user;
             }
             let error = new Error();

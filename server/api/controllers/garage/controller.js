@@ -1,5 +1,6 @@
 import GaragesService from '../../services/garage/garages.service.js';
 import MeService from '../../services/me.service.js';
+import l from '../../../common/logger.js';
 
 export class Controller {
     all(req, res) {
