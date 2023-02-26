@@ -54,7 +54,13 @@ export default class ExpressServer {
     oas(app, this.routes)
       .then(() => {
         const server = http.createServer(app).listen(port, welcome(port));
-        const io = new Server(server);
+        const io = new Server(server, {
+          cors: {
+            origin: 'https://park-a-lot.netlify.app/',
+            methods: ["GET", "POST"],
+            credentials: true
+          }
+        });
         global.io = io;
         io.on('connection', (socket) => {
           socket.emit('welcome', {
