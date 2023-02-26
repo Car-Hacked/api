@@ -21,15 +21,10 @@ const exit = process.exit;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-var corsOptions = {
-  origin: 'https://park-a-lot.netlify.app/',
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-}
-
 export default class ExpressServer {
   constructor() {
     const root = path.normalize(`${__dirname}/../..`);
-    app.use(cors(corsOptions));
+    app.use(cors());
     app.set('appPath', `${root}client`);
     app.use(bodyParser.json({ limit: process.env.REQUEST_LIMIT || '100kb' }));
     app.use(
@@ -62,7 +57,7 @@ export default class ExpressServer {
         const server = http.createServer(app);
         const io = new Server(server, {
           cors: {
-            origin: 'https://park-a-lot.netlify.app/'
+            origin: '*'
           }
         });
         global.io = io;
