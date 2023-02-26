@@ -72,12 +72,12 @@ export default class ExpressServer {
           });
           l.info(`user connected to socket: ${socket.id}`);
         });
+        server.listen(port, welcome(port));
       })
       .catch(e => {
         l.error(e);
         exit(1);
       });
-      server.listen(port, welcome(port));
     return app;
   }
 }
