@@ -9,7 +9,7 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { Server } from 'socket.io';
-import { GaragesService } from '../api/services/garage/garages.service.js';
+import GaragesService from '../api/services/garage/garages.service.js';
 
 import oas from './oas.js';
 
