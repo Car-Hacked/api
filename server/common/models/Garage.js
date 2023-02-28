@@ -32,7 +32,7 @@ GarageSchema.pre('save', function(next) {
             next();
         });
     } else {
-        io.emit("updated", this._id, this.carsInLot);
+        io.emit("updated", this);
         next();
     }
 });
