@@ -60,16 +60,16 @@ export default class ExpressServer {
             origin: '*'
           }
         });
-        global.io = io;
         io.on('connection', (socket) => {
           socket.emit('welcome', {
             welcome: "server connected"
           });
+          socket.on('garageUpdate', (data) => {
+            GaragesService.update(data);
+          });
           l.info(`user connected to socket: ${socket.id}`);
         });
-        io.on("garageUpdate", (data) => {
-          GaragesService.update(data);
-        });
+        global.io = io;
         server.listen(port, welcome(port));
       })
       .catch(e => {
