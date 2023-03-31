@@ -35,4 +35,4 @@ AccessToken.pre('save', function (next) {
     });
 });
 
-module.exports = mongoose.model('AccessToken', AccessToken);
+export default mongoose.model('AccessToken', AccessToken);

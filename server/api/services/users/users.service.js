@@ -1,5 +1,5 @@
-import l from '../../../common/logger';
-import { User } from '../../../common/models/User';
+import l from '../../../common/logger.js';
+import { User } from '../../../common/models/User.js';
 
 class UsersService {
     async create(body) {

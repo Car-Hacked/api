@@ -1,6 +1,6 @@
-import garagesRouter from './api/controllers/garage/router';
-import LoginController from './api/controllers/login';
-import UsersController from './api/controllers/users/router';
+import garagesRouter from './api/controllers/garage/router.js';
+import LoginController from './api/controllers/login.js';
+import UsersController from './api/controllers/users/router.js';
 
 export default function routes(app) {
   app.use('/api/v1/garages', garagesRouter);

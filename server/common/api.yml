@@ -151,7 +151,7 @@ paths:
       description: Fetch all garages
       responses:
         200:
-          description: Return all garages
+          description: Return the garage with the specified id
           content:
             application/json:
               schema:
@@ -392,7 +392,6 @@ components:
       required:
         - username
         - password
-        - secret
       properties:
         username:
           type: string
@@ -401,9 +400,6 @@ components:
         password:
           type: string
           example: some protected string
-        secret:
-          type: string
-          example: company secret
 
     UpdateUser:
       type: object

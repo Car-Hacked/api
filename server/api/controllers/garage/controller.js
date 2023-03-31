@@ -1,5 +1,6 @@
-import GaragesService from '../../services/garage/garages.service';
-import MeService from '../../services/me.service';
+import GaragesService from '../../services/garage/garages.service.js';
+import MeService from '../../services/me.service.js';
+import l from '../../../common/logger.js';
 
 export class Controller {
     all(req, res) {
@@ -58,11 +59,7 @@ export class Controller {
                 .json({ error: 'An internal server error occured!', code: 'INTERNAL' });
         }
         GaragesService.update(req.body).then(r => {
-            if (r) {
-                const io = req.app.get('socketio');
-                io.emit("updated", r._id, r.carsInLot);
-                res.json(r);
-            }
+            if (r) res.json(r);
             else res.status(404).end();
         });
     }

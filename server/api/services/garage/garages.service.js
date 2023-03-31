@@ -1,16 +1,23 @@
-import l from '../../../common/logger';
-import { Garage } from '../../../common/models/Garage';
+import l from '../../../common/logger.js';
+import { Garage } from '../../../common/models/Garage.js';
 
 class GaragesService {
     async all() {
         l.info(`${this.constructor.name}.all()`);
-        const result = await Garage.find({}, (e, r) => r).catch(error => error);
+        const result = await Garage.find({}).catch(error => error);
+        if(result instanceof Error) {
+          l.error(result);
+        }
         return result;
     }
 
-    byId(id) {
+    async byId(id) {
         l.info(`${this.constructor.name}.byId(${id})`);
-        return Garage.findOne({ _id: id }).catch(error => error);
+        const result = await Garage.findOne({ _id: id }).catch(error => error);
+        if(result instanceof Error) {
+          l.error(result);
+        }
+        return result;
     }
 
     async create(body) {
@@ -22,14 +29,18 @@ class GaragesService {
             capacity: body.capacity
         };
         const garage = await Garage.create(garageConfig).catch(error => error);
+        if(result instanceof Error) {
+          l.error(result);
+        }
         return garage;
     }
 
     async delete(id) {
         l.info(`delete ${this.constructor.name}.byId(${id})`);
         const result = await Garage.deleteOne({ _id: id }).catch(error => error);
-        if (result instanceof Error){
-            return result;
+        if(result instanceof Error) {
+          l.error(result);
+          return result;
         }
         const response = { message: `Garage with id ${id} and all associated data successfully removed!`, code: 'REMOVED' };
         return response;
@@ -37,8 +48,16 @@ class GaragesService {
 
     async update(body) {
         l.info(`update ${this.constructor.name}.byId(${body._id})`);
-        await Garage.updateOne({ _id: body._id }, body, { upsert: true }).catch(error => error);
+        const result = await Garage.updateOne({ _id: body._id }, body, { upsert: true }).catch(error => error);
+        if(result instanceof Error) {
+          l.error(result);
+          return result;
+        }
         const garage = await Garage.findOne({ _id: body._id }).catch(error => error);
+        if(garage instanceof Error) {
+          l.error(garage);
+          return garage;
+        }
         if(garage) {
             garage.save();
             return garage;
